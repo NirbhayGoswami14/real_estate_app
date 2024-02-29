@@ -1,10 +1,10 @@
 import 'package:get/get.dart';
 
-class LoginController extends GetxController {
-  //TODO: Implement LoginController
+class DashboardController extends GetxController {
+  //TODO: Implement HomeController
 
   final count = 0.obs;
-   RxBool isObscure=true.obs;
+  var selectedIndex=0.obs;
   @override
   void onInit() {
     super.onInit();

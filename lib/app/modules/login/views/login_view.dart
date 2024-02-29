@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:real_estate_app/app/routes/app_pages.dart';
 import 'package:real_estate_app/util/app_images.dart';
 import 'package:real_estate_app/util/color_utils.dart';
 import 'package:real_estate_app/util/textstyles.dart';
@@ -49,23 +50,28 @@ class LoginView extends GetView<LoginController> {
               ),
               Text("Password", style: TextStyles.semiBold14),
               SizedBox(height: 10,),
-              TextFormField(
-                obscureText: true,
+              Obx(() => TextFormField(
+                obscureText: controller.isObscure.value,
                 decoration: InputDecoration(
-                  contentPadding: EdgeInsets.symmetric(vertical:15),
-                  border:
-                      OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
-                  hintText: "Password",
-                  hintStyle:TextStyles.normal14,
-                  prefixIcon: Icon(Icons.lock_outline),
-                  suffixIcon:IconButton(icon: Icon(Icons.visibility_outlined), onPressed: () {  },)
+                    contentPadding: EdgeInsets.symmetric(vertical:15),
+                    border:
+                    OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                    hintText: "Password",
+                    hintStyle:TextStyles.normal14,
+                    prefixIcon: Icon(Icons.lock_outline),
+                    suffixIcon:IconButton(icon:controller.isObscure.value?Icon(Icons.visibility_outlined):Icon(Icons.visibility_off_outlined), onPressed: () {
+                      controller.isObscure.value=!controller.isObscure.value;
+                    },)
                 ),
-              ),
+              ),),
+
               SizedBox(height: 20,),
               Align(
                 alignment: Alignment.center,
                 child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.offNamed(Routes.DASHBOARD);
+                    },
                     style: ElevatedButton.styleFrom(
                         backgroundColor: ColorUtils.primaryColor,minimumSize: Size(350,45)),
                     child: Text(
@@ -90,7 +96,25 @@ class LoginView extends GetView<LoginController> {
                   IconButton(onPressed: (){}, icon:Icon(Icons.apple)),
                   IconButton(onPressed: (){}, icon:Icon(Icons.facebook)),
                 ],
-              )
+              ),
+              SizedBox(height:50,),
+              Align(
+                  alignment: Alignment.center,
+                  child: GestureDetector(
+                      onTap: () {
+                        Get.offNamed(Routes.SIGNUP);
+                      },
+                      child: RichText(
+                          text: TextSpan(
+                              text: "Not have an account ?",
+                              style: TextStyles.semiBold14,
+                              children: [
+                            TextSpan(
+                                text: " Signup",
+                                style: TextStyle(
+                                    color: ColorUtils.primaryColor,
+                                    decoration: TextDecoration.underline))
+                          ]))))
             ],
           ),
         ),
